@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Financiamiento, Proformas y Pitch (Bloque A, Sesión 5)</title><style>
+:root{--acento:#b4532c;--safe-b:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0}
+body{background:#111;color:#fff;font-family:-apple-system,system-ui,Arial;overflow:hidden;height:100vh}
+#top{position:fixed;top:0;left:0;right:0;padding:.6rem 1rem;background:rgba(0,0,0,.55);
+  font-size:.95rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;z-index:5}
+#top a{color:#fff;text-decoration:none;font-size:1.4rem}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:52px 8px calc(78px + var(--safe-b))}
+#img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .25s}
+#img.rot{transform:rotate(90deg);max-width:calc(100vh - 140px);max-height:100vw}
+#bar{position:fixed;bottom:0;left:0;right:0;display:flex;gap:.6rem;padding:.7rem 1rem calc(.7rem + var(--safe-b));
+  background:rgba(0,0,0,.6);z-index:5}
+.b{flex:1;background:#2a2a2a;color:#fff;border:none;border-radius:14px;padding:1rem;font-size:1.1rem;font-weight:800;min-height:56px}
+.b:active{transform:scale(.97)}
+.b.pri{background:var(--acento)} .b:disabled{opacity:.35}
+#cnt{font-weight:800}
+</style></head><body>
+<div id="top"><span id="cnt"></span><a href="#" onclick="history.back();return false" title="Cerrar">✕</a></div>
+<div id="stage"><img id="img" alt="Diapositiva"></div>
+<div id="bar">
+  <button class="b" id="prev">‹ Atrás</button>
+  <button class="b pri" id="rot">⟳ Horizontal</button>
+  <button class="b" id="next">Siguiente ›</button>
+</div>
+<script>
+const DIR="22set_financiamiento-proformas-pitch/", N=48;
+let i=1, rot=false;
+const img=document.getElementById("img"),cnt=document.getElementById("cnt"),
+  prev=document.getElementById("prev"),next=document.getElementById("next"),rotb=document.getElementById("rot");
+function show(){img.src=DIR+"s"+String(i).padStart(2,"0")+".jpg";cnt.textContent="Diapositiva "+i+" / "+N;
+  prev.disabled=i<=1;next.disabled=i>=N;}
+prev.onclick=()=>{if(i>1){i--;show();}};
+next.onclick=()=>{if(i<N){i++;show();}};
+rotb.onclick=()=>{rot=!rot;img.classList.toggle("rot",rot);rotb.textContent=rot?"⟳ Vertical":"⟳ Horizontal";};
+let x0=null;
+document.getElementById("stage").addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+document.getElementById("stage").addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>50){if(dx<0&&i<N){i++;show();}else if(dx>0&&i>1){i--;show();}}x0=null;},{passive:true});
+document.onkeydown=e=>{if(e.key==="ArrowRight")next.click();if(e.key==="ArrowLeft")prev.click();};
+show();
+</script></body></html>
