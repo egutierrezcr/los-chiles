@@ -38,44 +38,59 @@ main{max-width:640px;margin:0 auto;padding:1rem 1rem calc(2rem + var(--safe-b))}
 .mat .lab .e{font-size:1.3rem}
 .ab{border:1.5px solid var(--linea);background:var(--panel);color:var(--tinta);border-radius:12px;padding:.6rem .8rem;font-weight:700;font-size:.9rem;text-decoration:none;min-height:46px;display:inline-flex;align-items:center;cursor:pointer}
 .wa{border:none;background:var(--wa);color:#fff;border-radius:12px;width:52px;height:46px;font-size:1.3rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.tabs{display:flex;gap:.5rem;background:var(--panel);border:1px solid var(--linea);border-radius:16px;padding:.35rem;position:sticky;top:.5rem;z-index:5;box-shadow:0 2px 10px rgba(20,30,35,.08)}
+.tab{flex:1;border:none;background:transparent;color:var(--suave);font-size:1.2rem;font-weight:800;padding:.8rem;border-radius:12px;cursor:pointer;min-height:52px}
+.tab.on{background:var(--acento);color:#fff}
+.com{color:var(--suave);font-size:.95rem;text-align:center;margin:.7rem 0 .2rem;font-weight:600}
+video{display:block;width:100%;max-height:62vh;aspect-ratio:9/16;background:#000;border-radius:16px;object-fit:contain}
+.ses{font-weight:800;color:var(--acento);font-size:.95rem;margin:1.1rem 0 .5rem;padding-top:.9rem;border-top:2px dashed var(--linea)}
 .foot{color:var(--suave);font-size:.82rem;text-align:center;margin-top:1.2rem}
 </style>
 </head>
 <body>
 <header>
-  <div class="t">🎧 Materiales Los Chiles</div>
-  <div class="s">Audios y materiales de las sesiones</div>
+  <div class="t">🎬 Materiales Los Chiles</div>
+  <div class="s">Videos, audios y materiales de las sesiones</div>
 </header>
 <main>
-  <div class="hint"><span class="f">👆</span> Tocá el botón grande para escuchar</div>
+  <div class="tabs"><button class="tab" data-b="A">Bloque A</button><button class="tab" data-b="B">Bloque B</button></div>
+  <div class="com" id="com"></div>
+  <div class="hint"><span class="f">👆</span> Tocá el video para verlo</div>
   <div id="lista"></div>
   <div class="foot">Yo Emprendedor · Ayuda en Acción · Proyecto Integrémonos II</div>
 </main>
 <script>
 const WA='<svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.335zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>';
-const BIBLIO=[
- {n:1,fecha:"2026-08-24",titulo:"Habilidades y propuesta de valor",grupo:"Bloque A",
-  audio:"audios/24ago_habilidades-propuesta-valor.m4a",presentacion:"presentaciones/24ago_habilidades-propuesta-valor.html"},
- {n:2,fecha:"2026-08-31",titulo:"Modelo de negocio",grupo:"Bloque A",
-  audio:"audios/31ago_modelo-negocio.m4a",presentacion:"presentaciones/31ago_modelo-negocio.html",
-  grabacion:"https://drive.google.com/file/d/15fuPMlGkGHQq08CC70hXZAbzh3emmGS1/view?usp=sharing"},
- {n:3,fecha:"2026-09-01",titulo:"Marketing y ventas",grupo:"Bloque B",
-  audio:"audios/01set_marketing-ventas.m4a",presentacion:"presentaciones/01set_marketing-ventas.html",
-  grabacion:"https://drive.google.com/file/d/1rz8sEu55Q_ljxfd8uUZDgi6Lgh6eu0vT/view?usp=sharing"},
- {n:4,fecha:"2026-09-02",titulo:"Modelo de negocio",grupo:"Bloque B",
-  audio:"audios/02set_modelo-negocio.m4a",presentacion:"presentaciones/02set_modelo-negocio.html",
-  grabacion:"https://drive.google.com/drive/u/3/folders/18t9hjAbsCxQ_CuShOcfOP42Z_Cr3jEYi"},
- {n:5,fecha:"2026-09-07",titulo:"Rentabilidad y liquidez",grupo:"Bloque A",
-  audio:"audios/07set_rentabilidad-liquidez.m4a",presentacion:"presentaciones/07set_rentabilidad-liquidez.html"},
- {n:6,fecha:"2026-09-11",titulo:"Servicio al cliente, marca y videos",grupo:"Bloque B",
-  audio:"audios/11set_servicio-marca-videos.m4a",presentacion:"presentaciones/11set_servicio-marca-videos.html",
-  grabacion:"https://drive.google.com/file/d/1Bwej1yDsDu8oZ5XGSbSJlYGQR0fdEzIh/view?usp=drive_link"},
- {n:7,fecha:"2026-09-14",titulo:"Indicadores y formalización",grupo:"Bloque A",
-  audio:"audios/14set_formalizacion.m4a",presentacion:"presentaciones/14set_formalizacion.html",
-  grabacion:"https://drive.google.com/file/d/1VHQ944pnSir9kwZ6Hob4tVsQxbu08IN0/view?usp=drive_link"},
- {n:8,fecha:"2026-09-22",titulo:"Financiamiento, proformas y pitch",grupo:"Bloque A",
-  audio:"audios/22set_financiamiento-proformas-pitch.m4a",presentacion:"presentaciones/22set_financiamiento-proformas-pitch.html"},
-];
+const V=n=>({video:"videos/"+n+".mp4",poster:"videos/"+n+".jpg"});
+const BLOQUES={
+ A:{nombre:"Bloque A",comunidades:"Cuatro Esquinas · Cachito · El Triunfo · Coquital · Medio Queso",partes:[
+  {n:1,titulo:"Habilidades y propuesta de valor",...V("A1_idea_oportunidad"),sesiones:[
+   {fecha:"2026-08-24",audio:"audios/24ago_habilidades-propuesta-valor.m4a",presentacion:"presentaciones/24ago_habilidades-propuesta-valor.html"}]},
+  {n:2,titulo:"Modelo de negocio",...V("A2_modelo_negocio"),sesiones:[
+   {fecha:"2026-08-31",audio:"audios/31ago_modelo-negocio.m4a",presentacion:"presentaciones/31ago_modelo-negocio.html",
+    grabacion:"https://drive.google.com/file/d/15fuPMlGkGHQq08CC70hXZAbzh3emmGS1/view?usp=sharing"}]},
+  {n:3,titulo:"Rentabilidad y liquidez",...V("A3_cinco_alcancias"),sesiones:[
+   {fecha:"2026-09-07",audio:"audios/07set_rentabilidad-liquidez.m4a",presentacion:"presentaciones/07set_rentabilidad-liquidez.html"}]},
+  {n:4,titulo:"Indicadores y formalización",...V("A4_medir_formalizarse"),sesiones:[
+   {fecha:"2026-09-14",audio:"audios/14set_formalizacion.m4a",presentacion:"presentaciones/14set_formalizacion.html",
+    grabacion:"https://drive.google.com/file/d/1VHQ944pnSir9kwZ6Hob4tVsQxbu08IN0/view?usp=drive_link"}]},
+  {n:5,titulo:"Financiamiento, proformas y pitch",...V("A5_invertir_crecer"),sesiones:[
+   {fecha:"2026-09-22",audio:"audios/22set_financiamiento-proformas-pitch.m4a",presentacion:"presentaciones/22set_financiamiento-proformas-pitch.html"}]},
+ ]},
+ B:{nombre:"Bloque B",comunidades:"Las Nubes · Pavón · El Amparo",partes:[
+  {n:1,titulo:"Nivelación y trabajo en equipo",...V("B1_gestion_equipo"),sesiones:[]},
+  {n:2,titulo:"Marketing y ventas",...V("B2_llegar_cliente"),sesiones:[
+   {fecha:"2026-09-01",nombre:"Marketing y ventas",audio:"audios/01set_marketing-ventas.m4a",presentacion:"presentaciones/01set_marketing-ventas.html",
+    grabacion:"https://drive.google.com/file/d/1rz8sEu55Q_ljxfd8uUZDgi6Lgh6eu0vT/view?usp=sharing"},
+   {fecha:"2026-09-02",nombre:"Modelo de negocio",audio:"audios/02set_modelo-negocio.m4a",presentacion:"presentaciones/02set_modelo-negocio.html",
+    grabacion:"https://drive.google.com/drive/u/3/folders/18t9hjAbsCxQ_CuShOcfOP42Z_Cr3jEYi"}]},
+  {n:3,titulo:"Servicio al cliente, marca y videos",...V("B3_servicio_marca"),sesiones:[
+   {fecha:"2026-09-11",audio:"audios/11set_servicio-marca-videos.m4a",presentacion:"presentaciones/11set_servicio-marca-videos.html",
+    grabacion:"https://drive.google.com/file/d/1Bwej1yDsDu8oZ5XGSbSJlYGQR0fdEzIh/view?usp=drive_link"}]},
+  {n:4,titulo:"Calidad, decisiones y conflictos",...V("B4_calidad_conflictos"),sesiones:[]},
+  {n:5,titulo:"Costos y productividad",...V("B5_costos_productividad"),sesiones:[]},
+ ]},
+};
 const MES=["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
 const fcorta=iso=>{const p=iso.split("-");return (+p[2])+" "+MES[(+p[1])-1];};
 const mmss=s=>{if(!isFinite(s))return"--:--";s=Math.floor(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
@@ -91,52 +106,49 @@ async function compartir(url,titulo,tryFile){
   window.open("https://wa.me/?text="+encodeURIComponent(titulo+" "+abs),"_blank");
 }
 
-const cont=document.getElementById("lista");
-BIBLIO.forEach(it=>{
-  const c=document.createElement("div");c.className="card";
-  const tit=`${it.titulo} (${fcorta(it.fecha)})`;
-  let mats=`
-    <div class="mat">
-      <div class="lab"><span class="e">🎧</span> Audio</div>
-      <a class="ab" href="${it.audio}" download>Guardar</a>
-      <button class="wa" title="Enviar por WhatsApp" data-wa="audio">${WA}</button>
-    </div>`;
-  if(it.presentacion) mats+=`
-    <div class="mat">
-      <div class="lab"><span class="e">📄</span> Presentación</div>
-      <a class="ab" href="${it.presentacion}" target="_blank">Abrir</a>
-      <button class="wa" title="Enviar por WhatsApp" data-wa="pres">${WA}</button>
-    </div>`;
-  if(it.grabacion) mats+=`
-    <div class="mat">
-      <div class="lab"><span class="e">🎬</span> Grabación (video)</div>
-      <a class="ab" href="${it.grabacion}" target="_blank">Ver</a>
-      <button class="wa" title="Enviar por WhatsApp" data-wa="grab">${WA}</button>
-    </div>`;
-  c.innerHTML=`
-    <div class="head"><span class="num">${it.n}</span><div class="tit">${esc(it.titulo)}</div></div>
-    <div class="grupo">${fcorta(it.fecha)} · ${esc(it.grupo)}</div>
-    <button class="play"><span class="ico">▶</span><span class="lbl">Escuchar</span></button>
-    <div class="bar"><i></i></div>
-    <div class="time"><span class="cur">0:00</span><span class="dur">--:--</span></div>
-    ${mats}
-    <audio preload="none" src="${it.audio}"></audio>`;
-  const au=c.querySelector("audio"),btn=c.querySelector(".play"),ico=c.querySelector(".ico"),lbl=c.querySelector(".lbl");
-  const barI=c.querySelector(".bar>i"),cur=c.querySelector(".cur"),dur=c.querySelector(".dur");
-  btn.onclick=()=>{document.querySelectorAll("audio").forEach(a=>{if(a!==au)a.pause();});au.paused?au.play():au.pause();};
-  au.onplay=()=>{btn.classList.add("playing");ico.textContent="⏸";lbl.textContent="Pausar";};
-  au.onpause=()=>{btn.classList.remove("playing");ico.textContent="▶";lbl.textContent="Escuchar";};
-  au.onended=()=>{btn.classList.remove("playing");ico.textContent="▶";lbl.textContent="Escuchar de nuevo";};
-  au.onloadedmetadata=()=>{dur.textContent=mmss(au.duration);};
-  au.ontimeupdate=()=>{if(au.duration){barI.style.width=(au.currentTime/au.duration*100)+"%";cur.textContent=mmss(au.currentTime);}};
-  c.querySelectorAll(".wa").forEach(w=>w.onclick=()=>{
-    const k=w.dataset.wa;
-    if(k==="audio")compartir(it.audio,"Audio: "+tit,true);
-    if(k==="pres")compartir(it.presentacion,"Presentación: "+tit,false);
-    if(k==="grab")compartir(it.grabacion,"Grabación: "+tit,false);
+const cont=document.getElementById("lista"),tabs=document.querySelectorAll(".tab"),com=document.getElementById("com");
+function fila(e,lab,href,attrs,share){const dl=attrs.includes("download");return `<div class="mat"><div class="lab"><span class="e">${e}</span> ${lab}</div><a class="ab" href="${href}" ${attrs}>${dl?"Guardar":(e==="🎬"?"Ver":"Abrir")}</a><button class="wa" title="Enviar por WhatsApp" data-u="${esc(href)}" data-t="${esc(share)}" data-f="${dl?1:0}">${WA}</button></div>`;}
+function parar(yo){document.querySelectorAll("audio,video").forEach(m=>{if(m!==yo)m.pause();});}
+function pintar(k){
+  const B=BLOQUES[k]; cont.innerHTML=""; com.textContent=B.comunidades;
+  tabs.forEach(t=>t.classList.toggle("on",t.dataset.b===k));
+  try{localStorage.setItem("bloque",k);}catch(e){}
+  B.partes.forEach(p=>{
+    const c=document.createElement("div");c.className="card";
+    const tit=`${B.nombre} · Parte ${p.n}: ${p.titulo}`;
+    let h=`<div class="head"><span class="num">${p.n}</span><div class="tit">${esc(p.titulo)}</div></div>
+      <div class="grupo">${B.nombre} · Parte ${p.n} de ${B.partes.length}</div>
+      <video controls playsinline preload="none" poster="${p.poster}" src="${p.video}"></video>`;
+    h+=fila("▶️","Video corto (1 min)",p.video,"download","Video: "+tit);
+    p.sesiones.forEach(s=>{
+      const nom=`${s.nombre?s.nombre+" · ":""}Sesión del ${fcorta(s.fecha)}`;
+      h+=`<div class="ses">${esc(nom)}</div><div class="aud">
+        <button class="play"><span class="ico">▶</span><span class="lbl">Escuchar audio</span></button>
+        <div class="bar"><i></i></div><div class="time"><span class="cur">0:00</span><span class="dur">--:--</span></div>
+        <audio preload="none" src="${s.audio}"></audio></div>`;
+      h+=fila("🎧","Audio",s.audio,"download","Audio: "+tit+" ("+fcorta(s.fecha)+")");
+      if(s.presentacion)h+=fila("📄","Presentación",s.presentacion,'target="_blank"',"Presentación: "+tit);
+      if(s.grabacion)h+=fila("🎬","Grabación completa",s.grabacion,'target="_blank"',"Grabación: "+tit);
+    });
+    c.innerHTML=h;
+    c.querySelectorAll(".aud").forEach(a=>{
+      const au=a.querySelector("audio"),btn=a.querySelector(".play"),ico=a.querySelector(".ico"),lbl=a.querySelector(".lbl");
+      const barI=a.querySelector(".bar>i"),cur=a.querySelector(".cur"),dur=a.querySelector(".dur");
+      btn.onclick=()=>{parar(au);au.paused?au.play():au.pause();};
+      au.onplay=()=>{btn.classList.add("playing");ico.textContent="⏸";lbl.textContent="Pausar";};
+      au.onpause=()=>{btn.classList.remove("playing");ico.textContent="▶";lbl.textContent="Escuchar audio";};
+      au.onended=()=>{btn.classList.remove("playing");ico.textContent="▶";lbl.textContent="Escuchar de nuevo";};
+      au.onloadedmetadata=()=>{dur.textContent=mmss(au.duration);};
+      au.ontimeupdate=()=>{if(au.duration){barI.style.width=(au.currentTime/au.duration*100)+"%";cur.textContent=mmss(au.currentTime);}};
+    });
+    c.querySelectorAll("video").forEach(v=>v.onplay=()=>parar(v));
+    c.querySelectorAll(".wa").forEach(w=>w.onclick=()=>compartir(w.dataset.u,w.dataset.t,w.dataset.f==="1"));
+    cont.appendChild(c);
   });
-  cont.appendChild(c);
-});
+}
+tabs.forEach(t=>t.onclick=()=>{parar(null);pintar(t.dataset.b);window.scrollTo(0,0);});
+let ini="A";try{const g=localStorage.getItem("bloque");if(g&&BLOQUES[g])ini=g;}catch(e){}
+pintar(ini);
 </script>
 </body>
 </html>
