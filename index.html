@@ -20,13 +20,14 @@ header .s{font-size:.95rem;opacity:.9;margin-top:2px}
 main{max-width:640px;margin:0 auto;padding:1rem 1rem calc(2rem + var(--safe-b))}
 .hint{display:flex;align-items:center;justify-content:center;gap:.5rem;color:var(--suave);font-size:1.05rem;margin:.3rem 0 1rem;font-weight:600}
 .hint .f{font-size:1.7rem;animation:tap 1.6s ease-in-out infinite}
+@media (max-width:360px){main{padding-left:.7rem;padding-right:.7rem}.card{padding:.9rem}.play .ico{width:40px;height:40px;font-size:1.6rem}.tab{font-size:1.05rem}}
 @keyframes tap{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .card{background:var(--panel);border:1px solid var(--linea);border-radius:20px;padding:1.1rem;margin-bottom:1.1rem;box-shadow:0 2px 10px rgba(20,30,35,.06)}
 .head{display:flex;align-items:center;gap:.7rem}
 .num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--acento);color:#fff;font-weight:800;font-size:1.1rem;flex-shrink:0}
 .tit{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
 .grupo{color:var(--suave);font-size:.92rem;margin:.15rem 0 .9rem}
-.play{display:flex;align-items:center;gap:1rem;width:100%;border:none;cursor:pointer;background:var(--acento-2);color:#fff;border-radius:16px;padding:1.05rem 1.1rem;font-size:1.3rem;font-weight:800}
+.play{display:flex;align-items:center;gap:.8rem;white-space:nowrap;width:100%;border:none;cursor:pointer;background:var(--acento-2);color:#fff;border-radius:16px;padding:1.05rem 1.1rem;font-size:clamp(1.05rem,5.2vw,1.3rem);font-weight:800}
 .play:active{transform:scale(.98)}
 .play .ico{font-size:2rem;line-height:1;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .play.playing{background:var(--acento)}
@@ -34,10 +35,10 @@ main{max-width:640px;margin:0 auto;padding:1rem 1rem calc(2rem + var(--safe-b))}
 .bar>i{display:block;height:100%;width:0;background:var(--acento-2)}
 .time{display:flex;justify-content:space-between;color:var(--suave);font-size:.8rem}
 .mat{display:flex;align-items:center;gap:.6rem;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--linea)}
-.mat .lab{flex:1;font-weight:700;font-size:.98rem;display:flex;align-items:center;gap:.5rem}
+.mat .lab{flex:1;min-width:0;font-weight:700;font-size:.98rem;display:flex;align-items:center;gap:.5rem}
 .mat .lab .e{font-size:1.3rem}
-.ab{border:1.5px solid var(--linea);background:var(--panel);color:var(--tinta);border-radius:12px;padding:.6rem .8rem;font-weight:700;font-size:.9rem;text-decoration:none;min-height:46px;display:inline-flex;align-items:center;cursor:pointer}
-.wa{border:none;background:var(--wa);color:#fff;border-radius:12px;width:52px;height:46px;font-size:1.3rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.ab{border:1.5px solid var(--linea);background:var(--panel);color:var(--tinta);border-radius:12px;padding:.6rem .8rem;font-weight:700;font-size:.9rem;text-decoration:none;min-height:46px;display:inline-flex;align-items:center;cursor:pointer;flex-shrink:0}
+.wa{border:none;background:var(--wa);color:#fff;border-radius:12px;width:52px;height:46px;font-size:1.3rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .tabs{display:flex;gap:.5rem;background:var(--panel);border:1px solid var(--linea);border-radius:16px;padding:.35rem;position:sticky;top:.5rem;z-index:5;box-shadow:0 2px 10px rgba(20,30,35,.08)}
 .tab{flex:1;border:none;background:transparent;color:var(--suave);font-size:1.2rem;font-weight:800;padding:.8rem;border-radius:12px;cursor:pointer;min-height:52px}
 .tab.on{background:var(--acento);color:#fff}
@@ -119,7 +120,7 @@ function pintar(k){
     let h=`<div class="head"><span class="num">${p.n}</span><div class="tit">${esc(p.titulo)}</div></div>
       <div class="grupo">${B.nombre} · Parte ${p.n} de ${B.partes.length}</div>
       <video controls playsinline preload="none" poster="${p.poster}" src="${p.video}"></video>`;
-    h+=fila("▶️","Video corto (1 min)",p.video,"download","Video: "+tit);
+    h+=fila("▶️","Video",p.video,"download","Video: "+tit);
     p.sesiones.forEach(s=>{
       const nom=`${s.nombre?s.nombre+" · ":""}Sesión del ${fcorta(s.fecha)}`;
       h+=`<div class="ses">${esc(nom)}</div><div class="aud">
