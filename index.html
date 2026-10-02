@@ -91,6 +91,9 @@ const BLOQUES={
     grabacion:"https://drive.google.com/file/d/1Bwej1yDsDu8oZ5XGSbSJlYGQR0fdEzIh/view?usp=drive_link"}]},
   {n:4,titulo:"Calidad, decisiones y conflictos",...V("B4_calidad_conflictos"),sesiones:[]},
   {n:5,titulo:"Costos y productividad",...V("B5_costos_productividad"),sesiones:[]},
+  {n:6,titulo:"Tendencias, adaptación y plan de inversión",sesiones:[
+   {fecha:"2026-10-01",audio:"audios/01oct_tendencias-plan-inversion.m4a",presentacion:"presentaciones/01oct_tendencias-plan-inversion.html",
+    notas:"notas/01oct_tendencias-plan-inversion.pdf"}]},
  ]},
 };
 const MES=["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
@@ -120,8 +123,8 @@ function pintar(k){
     const tit=`${B.nombre} · Parte ${p.n}: ${p.titulo}`;
     let h=`<div class="head"><span class="num">${p.n}</span><div class="tit">${esc(p.titulo)}</div></div>
       <div class="grupo">${B.nombre} · Parte ${p.n} de ${B.partes.length}</div>
-      <video controls playsinline preload="none" poster="${p.poster}" src="${p.video}"></video>`;
-    h+=fila("▶️","Video",p.video,"download","Video: "+tit);
+      ${p.video?`<video controls playsinline preload="none" poster="${p.poster}" src="${p.video}"></video>`:""}`;
+    if(p.video)h+=fila("▶️","Video",p.video,"download","Video: "+tit);
     p.sesiones.forEach(s=>{
       const nom=`${s.nombre?s.nombre+" · ":""}Sesión del ${fcorta(s.fecha)}`;
       h+=`<div class="ses">${esc(nom)}</div><div class="aud">
@@ -130,6 +133,7 @@ function pintar(k){
         <audio preload="none" src="${s.audio}"></audio></div>`;
       h+=fila("🎧","Audio",s.audio,"download","Audio: "+tit+" ("+fcorta(s.fecha)+")");
       if(s.presentacion)h+=fila("📄","Presentación",s.presentacion,'target="_blank"',"Presentación: "+tit);
+      if(s.notas)h+=fila("📝","Notas de la sesión",s.notas,'target="_blank"',"Notas: "+tit);
       if(s.grabacion)h+=fila("🎬","Grabación completa",s.grabacion,'target="_blank"',"Grabación: "+tit);
     });
     c.innerHTML=h;
